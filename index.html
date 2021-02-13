@@ -221,7 +221,7 @@
                 <input type="email" name="email" placeholder="Your email" required>
                 <textarea name="message" placeholder="Your message" required></textarea>
                 <button id="my-form-button" type="submit">Send</button>
-                <p id="my-form-status"></p>
+                <p style="color:white;" id="my-form-status"></p>
             </form>
         </div>
         <!-- End #contact-form -->
@@ -286,6 +286,8 @@
             form.addEventListener("submit", function(ev) {
                 ev.preventDefault();
                 let data = new FormData(form);
+                status.innerHTML = "";
+                button.attr("disabled", "disabled");
                 ajax(form.method, form.action, data, success, error);
             });
         });
@@ -296,6 +298,7 @@
             xhr.open(method, url);
             xhr.setRequestHeader("Accept", "application/json");
             xhr.onreadystatechange = function() {
+                button.removeAttr("disabled");
                 if (xhr.readyState !== XMLHttpRequest.DONE) return;
                 if (xhr.status === 200) {
                     success(xhr.response, xhr.responseType);
